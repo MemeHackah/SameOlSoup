@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SellWindow : MonoBehaviour
-{   
+public class BrewWindow : MonoBehaviour
+{
     [SerializeField]
-    private Rect windowSize = new Rect(150, 75, 250, 200);
+    private Rect windowSize = new Rect(250, 100, 250, 200);
     [SerializeField]
     private int buttonW = 50;
     [SerializeField]
@@ -16,16 +16,16 @@ public class SellWindow : MonoBehaviour
 
     private void OnGUI()
     {
-        windowSize = GUI.Window(0, windowSize, sellSoup, "Sell Soup");
+        windowSize = GUI.Window(2, windowSize, makeSoup, "Make Soup");
     }
 
-    private void sellSoup(int id)
+    private void makeSoup(int id)
     {
         dragArea = new Rect(0, 0, windowSize.width, windowSize.height / 10);
-        if(GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f - buttonH / 2, buttonW, buttonH), "Sell"))
+        if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f - buttonH / 2, buttonW, buttonH), "Make"))
         {
-            //Debug.Log("sell button pressed");
-            manager.addMoney();
+            //Debug.Log("make button pressed");
+            manager.addSoup();
         }
         GUI.DragWindow(dragArea);
     }
