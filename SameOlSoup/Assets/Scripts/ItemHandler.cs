@@ -81,6 +81,7 @@ public class ItemHandler : MonoBehaviour
             Instantiate(autoMat);
             autoMat.GetComponent<AutoMatMaker>().matPerSecond = matPerSec;
             autoMat.GetComponent<AutoMatMaker>().manager = this.gameObject.GetComponent<ItemHandler>();
+            this.GetComponent<ShopWindow>().turnOff(1);
             spendMoney(5f);
         }
         
@@ -92,6 +93,7 @@ public class ItemHandler : MonoBehaviour
         {
             Instantiate(autoSouper);
             autoSouper.GetComponent<AutoSoupMaker>().manager = this.gameObject.GetComponent<ItemHandler>();
+            this.GetComponent<ShopWindow>().turnOff(2);
             spendMoney(5f);
         }
     }
@@ -102,6 +104,7 @@ public class ItemHandler : MonoBehaviour
         {
             Instantiate(autoSeller);
             autoSeller.GetComponent<AutoSeller>().manager = this.gameObject.GetComponent<ItemHandler>();
+            this.GetComponent<ShopWindow>().turnOff(3);
             spendMoney(5f);
         }
     }
