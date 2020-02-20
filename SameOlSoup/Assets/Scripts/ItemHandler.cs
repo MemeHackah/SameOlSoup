@@ -8,13 +8,16 @@ public class ItemHandler : MonoBehaviour
     private int soupCount;
     private int materialCount;
     private float moneyCount;
-    public Text moneyText;
-    public Text soupText;
-    public Text materialText;
+    public string moneyText;
+    public string soupText;
+    public string materialText;
     public float materialValue;
     public float soupValue;
     public float soupCost;
-    
+    public GameObject autoMat;
+    public GameObject autoSeller;
+    public GameObject autoSouper;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,19 +42,19 @@ public class ItemHandler : MonoBehaviour
 
     public void addSoup()
     {
-        if(materialCount >= materialValue)
+        if (materialCount >= materialValue)
         {
             soupCount += 1;
-            soupText.text = "Soup: " + soupCount;
+            soupText = "Soup: " + soupCount;
             materialCount -= (int)materialValue;
-            materialText.text = "Materials: " + materialCount;
+            materialText = "Materials: " + materialCount;
         }
     }
 
     public void addMaterials()
     {
         materialCount += 1;
-        materialText.text = "Materials: " + materialCount;
+        materialText = "Materials: " + materialCount;
     }
 
     public void addMoney()
@@ -59,15 +62,47 @@ public class ItemHandler : MonoBehaviour
         if (soupCount >= soupValue)
         {
             moneyCount += soupCost;
-            moneyText.text = "Money: " + moneyCount;
+            moneyText = "Money: " + moneyCount;
             soupCount -= (int)soupValue;
-            soupText.text = "Soup: " + soupCount;
+            soupText = "Soup: " + soupCount;
         }
     }
 
     public void spendMoney(float money)
     {
         moneyCount -= money;
-        moneyText.text = "Money: " + moneyCount;
+        moneyText = "Money: " + moneyCount;
+    }
+
+    public void autoMaterial(float matPerSec)
+    {
+        if(moneyCount >= 5f)
+        {
+            Instantiate(autoMat);
+            autoMat.GetComponent<AutoMatMaker>().matPerSecond = matPerSec;
+            autoMat.GetComponent<AutoMatMaker>().manager = this.gameObject.GetComponent<ItemHandler>();
+            spendMoney(5f);
+        }
+        
+    }
+
+    public void autoSoup()
+    {
+        if (moneyCount >= 5f)
+        {
+            Instantiate(autoSouper);
+            autoSouper.GetComponent<AutoSoupMaker>().manager = this.gameObject.GetComponent<ItemHandler>();
+            spendMoney(5f);
+        }
+    }
+
+    public void autoSell()
+    {
+        if (moneyCount >= 5f)
+        {
+            Instantiate(autoSeller);
+            autoSeller.GetComponent<AutoSeller>().manager = this.gameObject.GetComponent<ItemHandler>();
+            spendMoney(5f);
+        }
     }
 }

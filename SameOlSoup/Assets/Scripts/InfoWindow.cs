@@ -17,9 +17,9 @@ public class InfoWindow : MonoBehaviour
 
     private void infoWindow(int id)
     {
-        GUI.Label(new Rect(25, 25, windowSize.width - 50, 25), manager.moneyText.text);
-        GUI.Label(new Rect(25, 50, windowSize.width - 50, 25), manager.soupText.text);
-        GUI.Label(new Rect(25, 75, windowSize.width - 50, 25), manager.materialText.text);
+        GUI.Label(new Rect(25, 25, windowSize.width - 50, 25), manager.moneyText);
+        GUI.Label(new Rect(25, 50, windowSize.width - 50, 25), manager.soupText);
+        GUI.Label(new Rect(25, 75, windowSize.width - 50, 25), manager.materialText);
         dragArea = new Rect(0, 0, windowSize.width, windowSize.height / 10);
         GUI.DragWindow(dragArea);
     }
