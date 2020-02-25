@@ -13,7 +13,10 @@ public class ShopWindow : MonoBehaviour
     private Rect dragArea;
     [SerializeField]
     private ItemHandler manager;
-    private bool buttonOn1 = true, buttonOn2 = true, buttonOn3 = true;
+    private int count = 1;
+    private float money = 5.0f;
+    private bool buttonOn1 = true, buttonOn2 = true, buttonOn3 = true, upgrade = false;
+
 
     private void OnGUI()
     {
@@ -24,9 +27,9 @@ public class ShopWindow : MonoBehaviour
     {
         dragArea = new Rect(0, 0, windowSize.width, windowSize.height / 10);
         if(buttonOn1)
-            if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f - (buttonH * 2 - (buttonH / 2)), buttonW, buttonH), "Buy Auto Material Maker: $5"))
+            if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f - (buttonH * 2 - (buttonH / 2)), buttonW, buttonH), "Buy Auto Material Maker: $" + money))
             {
-                manager.autoMaterial(1);
+                manager.autoMaterial(count, money);
             }
         if(buttonOn2)
             if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f + buttonH / 2, buttonW, buttonH), "Buy Auto Soup Maker: $5"))
@@ -39,6 +42,14 @@ public class ShopWindow : MonoBehaviour
             {
                 manager.autoSell();
             }
+
+        if(!buttonOn1 && !buttonOn2 && !buttonOn3)
+        {
+            upgrade = true;
+            count *= 2;
+            buttonOn1 = true;
+            money += 5f;
+        }
         GUI.DragWindow(dragArea);
     }
     public void turnOff(int id)

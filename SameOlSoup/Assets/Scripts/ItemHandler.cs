@@ -57,6 +57,12 @@ public class ItemHandler : MonoBehaviour
         materialText = "Materials: " + materialCount;
     }
 
+    public void addMaterials(float matCount)
+    {
+        materialCount += (int)matCount;
+        materialText = "Materials: " + materialCount;
+    }
+
     public void addMoney()
     {
         if (soupCount >= soupValue)
@@ -74,15 +80,15 @@ public class ItemHandler : MonoBehaviour
         moneyText = "Money: " + moneyCount;
     }
 
-    public void autoMaterial(float matPerSec)
+    public void autoMaterial(float matPerSec, float money)
     {
-        if(moneyCount >= 5f)
+        if(moneyCount >= money)
         {
             Instantiate(autoMat);
             autoMat.GetComponent<AutoMatMaker>().matPerSecond = matPerSec;
             autoMat.GetComponent<AutoMatMaker>().manager = this.gameObject.GetComponent<ItemHandler>();
             this.GetComponent<ShopWindow>().turnOff(1);
-            spendMoney(5f);
+            spendMoney(money);
         }
         
     }
