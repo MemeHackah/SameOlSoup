@@ -13,8 +13,9 @@ public class ShopWindow : MonoBehaviour
     private Rect dragArea;
     [SerializeField]
     private ItemHandler manager;
-    private int count = 1;
+    private int speed = 1;
     private float money = 5.0f;
+    private float soups = 1;
     private bool buttonOn1 = true, buttonOn2 = true, buttonOn3 = true, upgrade = false;
 
 
@@ -29,26 +30,29 @@ public class ShopWindow : MonoBehaviour
         if(buttonOn1)
             if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f - (buttonH * 2 - (buttonH / 2)), buttonW, buttonH), "Buy Auto Material Maker: $" + money))
             {
-                manager.autoMaterial(count, money);
+                manager.autoMaterial(speed, money, soups);
             }
         if(buttonOn2)
-            if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f + buttonH / 2, buttonW, buttonH), "Buy Auto Soup Maker: $5"))
+            if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f + buttonH / 2, buttonW, buttonH), "Buy Auto Soup Maker: $" + money))
             {
-                manager.autoSoup();
+                manager.autoSoup(speed, money);
             }
 
         if(buttonOn3)
-            if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f - buttonH / 2, buttonW, buttonH), "Buy Auto Soup Seller: $5"))
+            if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f - buttonH / 2, buttonW, buttonH), "Buy Auto Soup Seller: $" + money))
             {
-                manager.autoSell();
+                manager.autoSell(speed, money);
             }
 
         if(!buttonOn1 && !buttonOn2 && !buttonOn3)
         {
             upgrade = true;
-            count *= 2;
+            speed /= 10;
             buttonOn1 = true;
+            buttonOn2 = true;
+            buttonOn3 = true;
             money += 5f;
+            soups *= 2;
         }
         GUI.DragWindow(dragArea);
     }

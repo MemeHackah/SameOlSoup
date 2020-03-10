@@ -6,12 +6,14 @@ public class AutoSeller : MonoBehaviour
 {
     public float sellPerSecond;
     private Rect windowSize = new Rect(450, 50, 250, 200);
-    private float timer;
+    private float timer, sells;
     public ItemHandler manager;
     // Start is called before the first frame update
     void Start()
     {
         timer = 1;
+        sellPerSecond = 1;
+        manager = GameObject.FindGameObjectWithTag("Tracker").GetComponent<ItemHandler>();
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class AutoSeller : MonoBehaviour
         if (timer <= 0)
         {
             manager.addMoney();
-            timer = 1;
+            timer = sellPerSecond;
         }
     }
 

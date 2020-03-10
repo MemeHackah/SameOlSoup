@@ -7,11 +7,14 @@ public class AutoMatMaker : MonoBehaviour
     public float matPerSecond;
     private Rect windowSize = new Rect(450, 50, 250, 200);
     private float timer;
+    public float soups;
     public ItemHandler manager;
     // Start is called before the first frame update
     void Start()
     {
+        matPerSecond = 1;
         timer = 1;
+        manager = GameObject.FindGameObjectWithTag("Tracker").GetComponent<ItemHandler>();
     }
 
     // Update is called once per frame
@@ -20,8 +23,8 @@ public class AutoMatMaker : MonoBehaviour
         timer -= Time.deltaTime;
         if(timer <= 0)
         {
-            manager.addMaterials();
-            timer = 1;
+            manager.addMaterials(soups);
+            timer = matPerSecond;
         }
     }
     
