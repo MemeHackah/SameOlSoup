@@ -22,8 +22,8 @@ public class AutoSeller : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            manager.addMoney();
-            timer = sellPerSecond;
+            timer = 1;
+            manager.addSells(sellPerSecond);
         }
     }
 

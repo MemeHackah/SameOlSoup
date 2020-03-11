@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AutoSoupMaker : MonoBehaviour
 {
-    public float soupPerSecond;
+    public int soupPerSecond;
     private Rect windowSize = new Rect(450, 50, 250, 200);
     private float timer, soups;
     public ItemHandler manager;
@@ -22,8 +22,8 @@ public class AutoSoupMaker : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            manager.addSoup();
-            timer = soupPerSecond;
+            timer = 1;
+            manager.addMoreSoup(soupPerSecond);
         }
     }
 
