@@ -6,12 +6,14 @@ public class AutoSoupMaker : MonoBehaviour
 {
     public float soupPerSecond;
     private Rect windowSize = new Rect(450, 50, 250, 200);
-    private float timer;
+    private float timer, soups;
     public ItemHandler manager;
     // Start is called before the first frame update
     void Start()
     {
         timer = 1;
+        soupPerSecond = 1;
+        manager = GameObject.FindGameObjectWithTag("Tracker").GetComponent<ItemHandler>();
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class AutoSoupMaker : MonoBehaviour
         if (timer <= 0)
         {
             manager.addSoup();
-            timer = 1;
+            timer = soupPerSecond;
         }
     }
 
