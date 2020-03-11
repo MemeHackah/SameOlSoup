@@ -20,14 +20,17 @@ public class ItemHandler : MonoBehaviour
     private float soupsMade;
     public float karma;
     public float humans;
+    private bool artMade = false;
     public GameObject autoMat;
     public GameObject autoSeller;
     public GameObject autoSouper;
     public GameObject artifact;
+    private float timer;
 
     // Start is called before the first frame update
     void Start()
     {
+        timer = 30;
         soupCount = 0;
         materialCount = 0;
         moneyCount = 0f;
@@ -37,20 +40,27 @@ public class ItemHandler : MonoBehaviour
 
     void Update()
     {
-        if(soupsMade > 2)
+        timer -= Time.deltaTime;
+        if(soupsMade > 100 && !artMade)
         {
             Instantiate(artifact);
             artifact.GetComponent<ArtifactWindow>().manager = this.gameObject.GetComponent<ItemHandler>();
+            artMade = true;
         }
         if (humans <= 1)
         {
             SceneManager.LoadScene(1);
+        }
+        if(timer <= 0)
+        {
+            SceneManager.LoadScene(2);
         }
     }
 
     public void changeValue(float value)
     {
         soupValue = value;
+        timer = 30;
     }
     public int getSoup()
     {
@@ -76,6 +86,7 @@ public class ItemHandler : MonoBehaviour
             materialCount -= (int)materialValue;
             materialText = "Materials: " + materialCount;
         }
+        timer = 30;
     }
 
     public void addSoup(int num)
@@ -83,18 +94,21 @@ public class ItemHandler : MonoBehaviour
         soupCount += num;
         soupsMade += num;
         soupText = "Soup: " + soupCount;
+        timer = 30;
     }
 
     public void addMaterials()
     {
         materialCount += 1;
         materialText = "Materials: " + materialCount;
+        timer = 30;
     }
 
     public void addMaterials(float matCount)
     {
         materialCount += (int)matCount;
         materialText = "Materials: " + materialCount;
+        timer = 30;
     }
 
     public void addMoney()
@@ -106,12 +120,14 @@ public class ItemHandler : MonoBehaviour
             soupCount -= (int)soupValue;
             soupText = "Soup: " + soupCount;
         }
+        timer = 30;
     }
 
     public void spendMoney(float money)
     {
         moneyCount -= money;
         moneyText = "Money: " + moneyCount;
+        timer = 30;
     }
 
     public void autoMaterial(float matPerSec, float money, float soups)
@@ -125,7 +141,7 @@ public class ItemHandler : MonoBehaviour
             this.GetComponent<ShopWindow>().turnOff(1);
             spendMoney(money);
         }
-        
+        timer = 30;
     }
 
     public void autoSoup(float soupPerSec, float money)
@@ -138,6 +154,7 @@ public class ItemHandler : MonoBehaviour
             this.GetComponent<ShopWindow>().turnOff(2);
             spendMoney(money);
         }
+        timer = 30;
     }
 
     public void autoSell(float sellPerSec, float money)
@@ -150,6 +167,7 @@ public class ItemHandler : MonoBehaviour
             this.GetComponent<ShopWindow>().turnOff(3);
             spendMoney(money);
         }
+        timer = 30;
     }
 
     public void addKarma(float k)
@@ -162,6 +180,7 @@ public class ItemHandler : MonoBehaviour
         }
         karmaText = "Karma: " + karma;
         humanText = "Humans left: " + humans;
+        timer = 30;
     }
 
     public void spendKarma(float k)
@@ -171,5 +190,6 @@ public class ItemHandler : MonoBehaviour
             karma -= k;
             karmaText = "Karma: " + karma;
         }
+        timer = 30;
     }
 }

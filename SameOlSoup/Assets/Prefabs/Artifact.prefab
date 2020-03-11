@@ -47,8 +47,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 250
     y: 100
-    width: 350
+    width: 450
     height: 300
-  buttonW: 300
+  buttonW: 350
   buttonH: 50
   manager: {fileID: 0}
