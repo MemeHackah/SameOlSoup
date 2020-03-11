@@ -30,18 +30,37 @@ public class ShopWindow : MonoBehaviour
         if(buttonOn1)
             if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f - (buttonH * 2 - (buttonH / 2)), buttonW, buttonH), "Buy Auto Material Maker: $" + money))
             {
-                manager.autoMaterial(speed, money, soups);
+                if(upgrade)
+                {
+                    manager.upgradeMat(money, soups);
+                }
+                else
+                {
+                    manager.autoMaterial(speed, money, soups);
+                }
+                    
             }
         if(buttonOn2)
             if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f + buttonH / 2, buttonW, buttonH), "Buy Auto Soup Maker: $" + money))
             {
-                manager.autoSoup(speed, money);
+                if (upgrade)
+                {
+                    manager.upgradeSoup(money, (int)soups);
+                }
+                else 
+                    manager.autoSoup(speed, money);
+                    
             }
 
         if(buttonOn3)
             if (GUI.Button(new Rect(windowSize.width * 0.5f - buttonW / 2, windowSize.height * 0.5f - buttonH / 2, buttonW, buttonH), "Buy Auto Soup Seller: $" + money))
             {
-                manager.autoSell(speed, money);
+                if (upgrade)
+                {
+                    manager.upgradeSell(money, soups);
+                }
+                else
+                    manager.autoSell(speed, money);
             }
 
         if(!buttonOn1 && !buttonOn2 && !buttonOn3)
@@ -52,7 +71,7 @@ public class ShopWindow : MonoBehaviour
             buttonOn2 = true;
             buttonOn3 = true;
             money += 5f;
-            soups *= 2;
+            soups *= 5;
         }
         GUI.DragWindow(dragArea);
     }

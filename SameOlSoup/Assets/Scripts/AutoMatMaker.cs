@@ -14,6 +14,7 @@ public class AutoMatMaker : MonoBehaviour
     {
         matPerSecond = 1;
         timer = 1;
+        soups = 1;
         manager = GameObject.FindGameObjectWithTag("Tracker").GetComponent<ItemHandler>();
     }
 

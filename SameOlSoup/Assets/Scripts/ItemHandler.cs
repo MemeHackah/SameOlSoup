@@ -43,7 +43,7 @@ public class ItemHandler : MonoBehaviour
         timer -= Time.deltaTime;
         if(soupsMade > 100 && !artMade)
         {
-            Instantiate(artifact);
+            artifact = Instantiate(artifact);
             artifact.GetComponent<ArtifactWindow>().manager = this.gameObject.GetComponent<ItemHandler>();
             artMade = true;
         }
@@ -111,6 +111,36 @@ public class ItemHandler : MonoBehaviour
         timer = 30;
     }
 
+    public void addSoups(float matCount)
+    {
+        materialCount += (int)matCount;
+        materialText = "Materials: " + materialCount;
+        timer = 30;
+    }
+    public void addSells(float sellCount)
+    {
+        if (soupCount >= soupValue * sellCount)
+        {
+            moneyCount += sellCount * soupCost;
+            moneyText = "Money: " + moneyCount;
+            soupCount -= (int)soupValue;
+            soupText = "Soup: " + soupCount;
+        }  
+    }
+
+    public void addMoreSoup(int count)
+    {
+        if (materialCount >= materialValue * count)
+        {
+            soupCount += count;
+            soupsMade += count;
+            soupText = "Soup: " + soupCount;
+            materialCount -= (int)materialValue * count;
+            materialText = "Materials: " + materialCount;
+        }
+        timer = 30;
+    }
+
     public void addMoney()
     {
         if (soupCount >= soupValue)
@@ -134,7 +164,7 @@ public class ItemHandler : MonoBehaviour
     {
         if(moneyCount >= money)
         {
-            Instantiate(autoMat);
+            autoMat = Instantiate(autoMat);
             autoMat.GetComponent<AutoMatMaker>().soups = soups;
             autoMat.GetComponent<AutoMatMaker>().matPerSecond = matPerSec;
             autoMat.GetComponent<AutoMatMaker>().manager = this.gameObject.GetComponent<ItemHandler>();
@@ -144,11 +174,11 @@ public class ItemHandler : MonoBehaviour
         timer = 30;
     }
 
-    public void autoSoup(float soupPerSec, float money)
+    public void autoSoup(int soupPerSec, float money)
     {
         if (moneyCount >= money)
         {
-            Instantiate(autoSouper);
+            autoSouper = Instantiate(autoSouper);
             autoSouper.GetComponent<AutoSoupMaker>().soupPerSecond = soupPerSec;
             autoSouper.GetComponent<AutoSoupMaker>().manager = this.gameObject.GetComponent<ItemHandler>();
             this.GetComponent<ShopWindow>().turnOff(2);
@@ -161,7 +191,7 @@ public class ItemHandler : MonoBehaviour
     {
         if (moneyCount >= money)
         {
-            Instantiate(autoSeller);
+            autoSeller = Instantiate(autoSeller);
             autoSeller.GetComponent<AutoSeller>().sellPerSecond = sellPerSec;
             autoSeller.GetComponent<AutoSeller>().manager = this.gameObject.GetComponent<ItemHandler>();
             this.GetComponent<ShopWindow>().turnOff(3);
@@ -173,7 +203,7 @@ public class ItemHandler : MonoBehaviour
     public void addKarma(float k)
     {
         karma += k;
-        humans -= k * 5;
+        humans -= k * 500;
         if(humans <= 0)
         {
             humans = 1;
@@ -192,4 +222,36 @@ public class ItemHandler : MonoBehaviour
         }
         timer = 30;
     }
+
+    public void upgradeMat(float money, float soups)
+    {
+        if (moneyCount >= money)
+        {
+            autoMat.GetComponent<AutoMatMaker>().soups = soups;
+            this.GetComponent<ShopWindow>().turnOff(1);
+            spendMoney(money);
+        }
+        timer = 30;
+    }
+    public void upgradeSoup(float money, int soupsPerSecond)
+    {
+        if (moneyCount >= money)
+        {
+            autoSouper.GetComponent<AutoSoupMaker>().soupPerSecond = soupsPerSecond;
+            this.GetComponent<ShopWindow>().turnOff(2);
+            spendMoney(money);
+        }
+        timer = 30;
+    }
+    public void upgradeSell(float money, float sellPerSecond)
+    {
+        if (moneyCount >= money)
+        {
+            autoSeller.GetComponent<AutoSeller>().sellPerSecond = sellPerSecond;
+            this.GetComponent<ShopWindow>().turnOff(3);
+            spendMoney(money);
+        }
+        timer = 30;
+    }
+
 }
