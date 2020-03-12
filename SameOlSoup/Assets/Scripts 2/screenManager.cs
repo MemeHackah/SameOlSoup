@@ -5,9 +5,11 @@ using UnityEngine;
 public class screenManager : MonoBehaviour
 {
     private int soupCount;
-    [SerializeField]
+    public int getSoup() { return soupCount; }
     private int materialCount;
+    public int getMaterial() { return materialCount; }
     private float moneyCount;
+    public float getMoney() { return moneyCount; }
 
     private int manualGatherRate = 1;
     private float soupValue = 1.25f;
