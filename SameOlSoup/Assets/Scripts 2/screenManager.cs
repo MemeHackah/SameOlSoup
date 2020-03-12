@@ -9,7 +9,10 @@ public class screenManager : MonoBehaviour
     private int materialCount;
     private float moneyCount;
 
-    private int manMaterials = 1;
+    private int manualGatherRate = 1;
+    private float soupValue = 1.25f;
+    private int manualSoupRate = 1;
+    private int soupCost = 5;
 
     public string moneyText;
     public string soupText;
@@ -32,8 +35,17 @@ public class screenManager : MonoBehaviour
         moneyText = "Money: " + moneyCount;
     }
 
-    public void addMaterial()
-    {
-        materialCount += manMaterials;
+    public void addMaterial() { materialCount += manualGatherRate; }
+    public void addSoup() {
+        if (materialCount >= soupCost) {
+            soupCount += manualSoupRate;
+            materialCount -= soupCost;
+        }
+    }
+    public void addMoney() {
+        if (soupCount > 0) {
+            soupCount -= 1;
+            moneyCount += soupValue;
+        }
     }
 }

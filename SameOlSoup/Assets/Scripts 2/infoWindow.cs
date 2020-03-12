@@ -12,7 +12,6 @@ public class infoWindow : MonoBehaviour
     void Update()
     {
         txt = transform.Find("Text").GetComponent<Text>();
-
         txt.text = manager.moneyText + "\n" + manager.soupText + "\n" + manager.materialText;
     }
 }
