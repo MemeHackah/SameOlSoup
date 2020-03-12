@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matPerSecond: 1
-  manager: {fileID: 2753545525765335140, guid: 69a555853f52ea7458a6f3e79bbc6604, type: 3}
+  manager: {fileID: 0}
